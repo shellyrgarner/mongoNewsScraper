@@ -1,0 +1,55 @@
+body {
+	background-color: #F0F8FF;
+}
+
+
+#mainContainer{
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+#scrapeButton{
+    margin-top: 0.2rem;
+    margin-left: 1rem;
+}
+
+.jumbotron {
+    background-image: url("/images/handspaper.jpg");
+    background-size: cover;
+     background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#titleContainer {
+    color: rgb(8, 8, 8);
+ }
+
+ a {
+    text-decoration: none;
+    color: white;
+ }
+
+ .saveArticleButton{
+     background-color: rgb(65, 79, 206);
+     border-color: rgb(65, 79, 206);
+ }
+ .noteArticleButton{
+    background-color: burlywood;
+    border-color: burlywood;
+    color: black;
+}
+
+.deleteArticleButton{
+    background-color: red;
+    border-color: red;
+}
+
+.notes {
+    min-width: 25rem;
+    border-style: none;
+}
+
+.noteDelete {
+    color: red;
+    font-size: 2rem;
+}

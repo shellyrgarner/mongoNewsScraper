@@ -4,19 +4,32 @@ var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
 
-    headline: {
+    title: {
         type: String,
         // required: true
+        dropDups: true
     },
 
-    url: {
+    link: {
         type: String,
         // required: true
     },
 
     summary: {
         type: String
-    }
+    },
+    scrapedOn: {
+        type: Date,
+        default: Date.now
+    },
+    saved: {
+        type: Boolean,
+        default: false
+    },
+    note: [{
+        type: Schema.Types.ObjectId,
+        ref: "Note"
+    }]
 
     
 });
