@@ -1,23 +1,24 @@
 <div class="container" id="mainContainer">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">News Scraper</a>
+        {{!-- <a class="navbar-brand" href="/">Mongo News Scraper</a> --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                {{!-- <li class="nav-item">
                     <a class="nav-link" href="/">Home
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a class="nav-link active" href="/saved">Saved Articles
-                        <span class="sr-only">(current)</span>
+                    {{!-- <a class="nav-link" href="/saved">Saved Articles --}}
+                     <a class="btn btn-link btn-sm" href="/saved">Saved Articles
+                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <button id="scrapeButton" type="button" class="btn btn-primary btn-sm">Scrape New Articles</button>
+                    <button id="scrapeButton" type="button" class="btn btn-link btn-sm">Scrape New Articles</button>
                 </li>
             </ul>
         </div>
@@ -25,7 +26,7 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container" id="titleContainer">
-            <h1 class="display-4 text-center font-weight-bold">News Scraper</h1>
+            <h1 class="display-4 text-center font-weight-bold">Mongo News Scraper</h1>
        </div>
     </div>
 
@@ -37,16 +38,13 @@
                     <a href="{{this.link}}"> {{this.title}}</a>
                 </div>
                 <div class="col-2">
-                    <button type="button" class="btn btn-primary btn-sm saveArticleButton" data-articleId={{this._id}}>Save Article</button>
+                    <button type="button" class="btn btn-link btn-sm saveArticleButton" data-articleId={{this._id}}>Save Article</button>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
                 <p>{{this.summary}}</p>
-                <footer class="blockquote-footer">{{this.author}} {{!--
-                    <cite title="Source Title">Source Title</cite> --}}
-                </footer>
             </blockquote>
         </div>
     </div>
@@ -57,13 +55,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">News Scraper</h5>
+                    <h5 class="modal-title">Mongo News Scraper</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>{{articles.length}} articles haved been added!</p>
+                   <p>Scrape complete!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

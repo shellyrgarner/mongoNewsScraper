@@ -3,7 +3,6 @@ var router = express.Router();
 var mongoose = require("mongoose");
 var request = require("request");
 //scraping tools
-// var axios = require("axios");
 var cheerio = require("cheerio");
 var mongojs = require("mongojs");
 
@@ -19,8 +18,10 @@ mongoose.connect("mongodb://localhost/mongoNews", { useNewUrlParser: true });
 // mongoose.connect(MONGODB_URI);
 
 
-// var hbsObject = {};
 
+// router.get("/", function (req, res) {
+//     res.render("index");
+// });
 // home page 
 router.get('/', function (request, response) {
 
@@ -43,10 +44,8 @@ router.get('/', function (request, response) {
 router.get('/scrape', function (req, res) {
 
     request("https://techcrunch.com/", function (error, response, html) {
-        // if (error) console.log("Error Scraping", error);
-
-        // Then, we load that into cheerio and save it to $ for a shorthand selector
-        var $ = cheerio.load(html);
+      
+           var $ = cheerio.load(html);
 
         //Target articles by tag
         $(".post-block").each(function (i, element) {
@@ -75,10 +74,7 @@ router.get('/scrape', function (req, res) {
       
 
         db.Article.find({}).sort({ scrapedOn: -1 }).limit(30).then(function (found) {
-            // hbsObject = { articles: found };
-            // console.log(hbsObject);
-            // res.render("scraped", hbsObject);
-            res.render("scraped",  {title: "NewsScraper",articles: found});
+          res.render("scraped",  {title: "MongoNewsScraper",articles: found});
         }).catch(function (err) {
             console.log(err);
         });
@@ -93,7 +89,7 @@ router.get("/saved", function (req, res) {
         // hbsObject = { articles: found };
         // res.render("saved", hbsObject);
         // console.log(hbsObject);
-        res.render("saved",  {title: "NewsScraper", articles: dbArticle});
+        res.render("saved",  {title: "MongoNewsScraper", articles: dbArticle});
     })
     .catch(function (err) {
         res.json(err);
