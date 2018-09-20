@@ -8,9 +8,9 @@ var mongojs = require("mongojs");
 
 var db = require("../models");
 
-mongoose.connect("mongodb://localhost/mongoNews", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/mongoNews", { useNewUrlParser: true });
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoNews";
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
