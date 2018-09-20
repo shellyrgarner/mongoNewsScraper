@@ -19,18 +19,18 @@ $(document).ready(function () {
         })
     });
 
-    $(document).on("click", ".deleteArticleButton", function () {
-        var thisId = $(this).attr("data-articleId");
+    // $(document).on("click", ".deleteArticleButton", function () {
+    //     var thisId = $(this).attr("data-articleId");
 
-        $.ajax({
-            method: "POST",
-            url: "/articles/" + thisId,
-            data: { saved: false }
-        }).then(function () {
-            console.log("this article id: " + thisId + " was changed to false");
-            location.reload();
-        })
-    });
+    //     $.ajax({
+    //         method: "POST",
+    //         url: "/articles/" + thisId,
+    //         data: { saved: false }
+    //     }).then(function () {
+    //         console.log("this article id: " + thisId + " was changed to false");
+    //         location.reload();
+    //     })
+    // });
 
     var articleId = "";
     var noteId = "";

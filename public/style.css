@@ -9,7 +9,7 @@ body {
 }
 
 #titleContainer {
-    color: rgb(11, 44, 59);
+    color: rgb(22, 93, 126);
  }
 
  a {
@@ -24,5 +24,5 @@ body {
 
 .noteDelete {
     color: rgb(238, 61, 61);
-    /* font-size: 2rem; */
+
 }

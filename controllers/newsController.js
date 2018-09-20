@@ -17,21 +17,13 @@ mongoose.connect("mongodb://localhost/mongoNews", { useNewUrlParser: true });
 // mongoose.Promise = Promise;
 // mongoose.connect(MONGODB_URI);
 
-
-
-// router.get("/", function (req, res) {
-//     res.render("index");
-// });
 // home page 
 router.get('/', function (request, response) {
 
     // get all the saved articles
     db.Article.find({saved: true})
         .then(function (dbArticle) {
-            // hbsObject = { articles: found };
-            // response.render("saved", hbsObject);
-            // console.log(hbsObject);
-            response.render("saved",  {title: "NewsScraper", articles: dbArticle});
+          response.render("saved",  {title: "MongoNewsScraper", articles: dbArticle});
         })
         .catch(function (err) {
             response.json(err);
@@ -47,7 +39,6 @@ router.get('/scrape', function (req, res) {
       
            var $ = cheerio.load(html);
 
-        //Target articles by tag
         $(".post-block").each(function (i, element) {
             var title = $(this).children(".post-block__header").children("h2").children("a").text();
             var link = $(this).children(".post-block__header").children("h2").children("a").attr("href");
@@ -61,11 +52,9 @@ router.get('/scrape', function (req, res) {
                     link: link,
                     summary: summary
                 }).then(function(dbArticle) {
-                    // View the added result in the console
                     console.log(dbArticle);
                   })
                   .catch(function(err) {
-                    // If an error occurred, send it to the client
                     return response.json(err);
                 });
             };
@@ -86,10 +75,7 @@ router.get('/scrape', function (req, res) {
 router.get("/saved", function (req, res) {
     db.Article.find({saved: true})
     .then(function (dbArticle) {
-        // hbsObject = { articles: found };
-        // res.render("saved", hbsObject);
-        // console.log(hbsObject);
-        res.render("saved",  {title: "MongoNewsScraper", articles: dbArticle});
+      res.render("saved",  {title: "MongoNewsScraper", articles: dbArticle});
     })
     .catch(function (err) {
         res.json(err);
