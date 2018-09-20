@@ -8,36 +8,32 @@ var mongojs = require("mongojs");
 
 var db = require("../models");
 
-
-
 mongoose.connect("mongodb://localhost/mongoNews", { useNewUrlParser: true });
 
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoNews";
 
-// mongoose.Promise = Promise;
-// mongoose.connect(MONGODB_URI);
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 // home page 
 router.get('/', function (request, response) {
 
     // get all the saved articles
-    db.Article.find({saved: true})
+    db.Article.find({ saved: true })
         .then(function (dbArticle) {
-          response.render("saved",  {title: "MongoNewsScraper", articles: dbArticle});
+            response.render("saved", { title: "MongoNewsScraper", articles: dbArticle });
         })
         .catch(function (err) {
             response.json(err);
         });
 });
 
-
-
 // scrape route
 router.get('/scrape', function (req, res) {
 
     request("https://techcrunch.com/", function (error, response, html) {
-      
-           var $ = cheerio.load(html);
+
+        var $ = cheerio.load(html);
 
         $(".post-block").each(function (i, element) {
             var title = $(this).children(".post-block__header").children("h2").children("a").text();
@@ -51,19 +47,19 @@ router.get('/scrape', function (req, res) {
                     title: title,
                     link: link,
                     summary: summary
-                }).then(function(dbArticle) {
+                }).then(function (dbArticle) {
                     console.log(dbArticle);
-                  })
-                  .catch(function(err) {
-                    return response.json(err);
-                });
+                })
+                    .catch(function (err) {
+                        return response.json(err);
+                    });
             };
-            
+
         });
-      
+
 
         db.Article.find({}).sort({ scrapedOn: -1 }).limit(30).then(function (found) {
-          res.render("scraped",  {title: "MongoNewsScraper",articles: found});
+            res.render("scraped", { title: "MongoNewsScraper", articles: found });
         }).catch(function (err) {
             console.log(err);
         });
@@ -73,13 +69,13 @@ router.get('/scrape', function (req, res) {
 
 // Get all the saved articles
 router.get("/saved", function (req, res) {
-    db.Article.find({saved: true})
-    .then(function (dbArticle) {
-      res.render("saved",  {title: "MongoNewsScraper", articles: dbArticle});
-    })
-    .catch(function (err) {
-        res.json(err);
-    });
+    db.Article.find({ saved: true })
+        .then(function (dbArticle) {
+            res.render("saved", { title: "MongoNewsScraper", articles: dbArticle });
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
 });
 
 //Find note associated with associated with saved article id when add note button is hit
@@ -107,7 +103,7 @@ router.post("/articles/:id", function (req, res) {
 
 //Add a new note to an article or modify an exisiting one
 router.post("/saved/:id_Article/:id_Note", function (req, res) {
-    if (req.params.id_Note==0) {
+    if (req.params.id_Note == 0) {
         db.Note.create(req.body).then(function (dbNote) {
             return db.Article.findOneAndUpdate({ _id: req.params.id_Article }, { note: dbNote._id }, { new: true });
         })
@@ -119,7 +115,7 @@ router.post("/saved/:id_Article/:id_Note", function (req, res) {
                 res.json(err);
             });
     } else {
-        db.Note.findOneAndUpdate({_id: req.params.id_Note}, {body: req.body.body}).then(function (dbNote) {
+        db.Note.findOneAndUpdate({ _id: req.params.id_Note }, { body: req.body.body }).then(function (dbNote) {
             return db.Article.findOneAndUpdate({ _id: req.params.id_Article }, { note: dbNote._id }, { new: true });
         })
             .then(function (dbArticle) {
@@ -132,9 +128,9 @@ router.post("/saved/:id_Article/:id_Note", function (req, res) {
     }
 });
 
-router.delete("/saved/:id_Article/:id_Note", function(req, res){
-    db.Note.findOneAndRemove({_id: req.params.id_Note}).then(function (dbNote) {
-        return db.Article.findOneAndUpdate({ _id: req.params.id_Article }, { $unset: {note: 1 }}, { new: true });
+router.delete("/saved/:id_Article/:id_Note", function (req, res) {
+    db.Note.findOneAndRemove({ _id: req.params.id_Note }).then(function (dbNote) {
+        return db.Article.findOneAndUpdate({ _id: req.params.id_Article }, { $unset: { note: 1 } }, { new: true });
     })
         .then(function (dbArticle) {
             console.log(dbArticle);
