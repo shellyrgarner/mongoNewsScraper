@@ -1,1 +1,4 @@
 # mongoNewsScraper
+
+A web app that lets users view and leave comments on the latest news. 
+Whenever a user visits the site, they will have the option to scrape stories from the TechCrunch site.  Users will also have the option to save any of the articles that are pulled back.  Users are also able to leave comments on the articles displayed and revisit them later. The comments will be saved to the database as well and associated with their articles. Users also have the option to delete comments left on articles. All stored comments are visible to the user by clicking on the article linlk.  Users are also able to update the comments.
